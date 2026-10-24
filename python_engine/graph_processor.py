@@ -23,18 +23,22 @@ class GraphEngine:
         features = []
         nodes = list(G.nodes())
 
-        # Simple cycles detection on reduced directed graph
+        # Fast cycle detection: use bounded cycle search instead of searching all exponential combinations
         simple_digraph = nx.DiGraph(G)
-        try:
-            cycles = list(nx.simple_cycles(simple_digraph))
-        except Exception:
-            cycles = []
-
         cycle_nodes = set()
-        for c in cycles:
-            if 3 <= len(c) <= 6:
-                for node in c:
-                    cycle_nodes.add(node)
+        try:
+            # Only examine the first 25 short cycles to prevent exponential freezing
+            cycle_gen = nx.simple_cycles(simple_digraph)
+            count = 0
+            for c in cycle_gen:
+                if 2 <= len(c) <= 6:
+                    for node in c:
+                        cycle_nodes.add(node)
+                count += 1
+                if count > 25:
+                    break
+        except Exception:
+            pass
 
         for node in nodes:
             in_edges = list(G.in_edges(node, data=True))
@@ -59,11 +63,10 @@ class GraphEngine:
             # Peeling check candidate
             is_peeling = 0
             if in_deg >= 1 and out_deg >= 2:
-                # 1 large in, 1 main out, 1 small out
                 out_amts = sorted([e[2].get("amount", 0.0) for e in out_edges], reverse=True)
                 if len(out_amts) >= 2 and total_in_amt > 0:
                     pass_through = out_amts[0] / total_in_amt
-                    if 0.75 <= pass_through <= 0.99:
+                    if 0.70 <= pass_through <= 0.99:
                         is_peeling = 1
 
             features.append({
@@ -81,10 +84,6 @@ class GraphEngine:
         return pd.DataFrame(features)
 
     def bundle_edges(self, G: nx.MultiDiGraph):
-        """
-        Collapses multiple edges between the same node pair into bundled representation
-        with thickness proportional to transaction count and volume.
-        """
         bundled = {}
         for u, v, data in G.edges(data=True):
             pair_key = f"{u}->{v}"
@@ -108,7 +107,6 @@ class GraphEngine:
         result = []
         for edge in bundled.values():
             count = edge["transactionCount"]
-            # Visual thickness: logarithmically or min-max scaled
             thickness = min(16, max(2, int(count * 2.5)))
             edge["edgeThickness"] = thickness
             edge["isHighFrequency"] = count >= 4

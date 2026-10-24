@@ -1,0 +1,158 @@
+# ==============================================================================
+# ChainGraph.io Root Monorepo Gitignore
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Operating System & System Files
+# ------------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+*.tmp
+*.bak
+*.swp
+*~
+
+# ------------------------------------------------------------------------------
+# 2. Editors & IDEs
+# ------------------------------------------------------------------------------
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# IntelliJ IDEA / JetBrains
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+
+# ------------------------------------------------------------------------------
+# 3. Environment Variables & Secrets (CRITICAL)
+# ------------------------------------------------------------------------------
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+*.pem
+*.key
+*.cert
+*.crt
+
+# ------------------------------------------------------------------------------
+# 4. Frontend (React / Vite / Node) -> frontend/
+# ------------------------------------------------------------------------------
+# Node dependencies (root and subdirectories)
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Vite / Build outputs
+frontend/dist/
+frontend/dist-ssr/
+frontend/build/
+dist/
+build/
+*.tsbuildinfo
+
+# Testing / Coverage artifacts
+frontend/coverage/
+frontend/.nyc_output/
+coverage/
+
+# ------------------------------------------------------------------------------
+# 5. Backend (Spring Boot / Java / Maven) -> backend/
+# ------------------------------------------------------------------------------
+# Maven target directory & build artifacts
+backend/target/
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+
+# Maven Wrapper & cache logs
+backend/.mvn/timing.properties
+backend/.mvn/wrapper/maven-wrapper.jar
+.mvn/
+*.log
+
+# Crash logs & heap dumps
+hs_err_pid*
+replay_pid*
+
+# ------------------------------------------------------------------------------
+# 6. Python Engine & ML Pipeline -> python_engine/
+# ------------------------------------------------------------------------------
+# Byte-compiled files & cache directories at ANY depth
+**/__pycache__/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python Virtual Environments (root or subfolders)
+python_engine/venv/
+python_engine/.venv/
+python_engine/env/
+python_engine/ENV/
+**/venv/
+**/.venv/
+**/env/
+
+# Trained ML Model Weights & Serialized Artifacts
+python_engine/models/*.pkl
+python_engine/models/*.joblib
+python_engine/models/*.h5
+python_engine/models/*.pt
+python_engine/models/*.onnx
+python_engine/models/*.bin
+*.pkl
+*.joblib
+*.h5
+*.pt
+*.onnx
+
+# Generated Datasets & Sample Excel / CSV Files
+python_engine/*.xlsx
+python_engine/*.xls
+python_engine/*.csv
+python_engine/data/
+*.xlsx
+*.xls
+
+# Jupyter Notebook Checkpoints & pytest caches
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+.pytest_cache/
+**/.pytest_cache/
+.coverage
+htmlcov/
+
+# ------------------------------------------------------------------------------
+# 7. Logs & Temporary Data
+# ------------------------------------------------------------------------------
+logs/
+**/
