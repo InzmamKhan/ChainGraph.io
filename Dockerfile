@@ -4,27 +4,31 @@
 FROM maven:3.9.6-eclipse-temurin-21-jammy AS backend-build
 WORKDIR /build
 
-# Copy pom.xml and pre-download dependencies
 COPY backend/pom.xml ./
 RUN mvn dependency:go-offline -B
 
-# Copy backend source code and compile jar
 COPY backend/src ./src
 RUN mvn clean package -DskipTests -B
 
 # ==========================================
-# STAGE 2: Combined Runtime Container
+# STAGE 2: Combined Runtime Container (Eclipse Temurin JRE + Python)
 # ==========================================
-FROM python:3.11-slim-bookworm
+FROM eclipse-temurin:21-jre-jammy
 
-# Install OpenJDK 21 headless + netcat for readiness probe
+# Install Python 3, pip, and netcat for readiness probe
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    openjdk-21-jre-headless \
+    python3 \
+    python3-pip \
+    python3-venv \
     netcat-openbsd \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+
+# Setup Python virtual environment
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 
 # 1. Setup Python ML Engine
 COPY python_engine/requirements.txt ./python_engine/
