@@ -1,22 +1,16 @@
 # ==========================================
-# STAGE 1: Build Spring Boot Backend
+# STAGE 1: Build Spring Boot Backend via Maven
 # ==========================================
-FROM eclipse-temurin:21-jdk-jammy AS backend-build
+FROM maven:3.9.6-eclipse-temurin-21-jammy AS backend-build
 WORKDIR /build
 
-# Copy Maven wrapper & POM
-COPY backend/mvnw backend/mvnw.cmd backend/pom.xml ./
-COPY backend/.mvn ./.mvn/
-COPY backend/apache-maven-3.9.6 ./apache-maven-3.9.6/
+# Copy pom.xml and pre-download dependencies
+COPY backend/pom.xml ./
+RUN mvn dependency:go-offline -B
 
-# Download dependencies
-RUN if [ -f ./mvnw ]; then chmod +x ./mvnw && ./mvnw dependency:go-offline -B; \
-    else ./apache-maven-3.9.6/bin/mvn dependency:go-offline -B; fi
-
-# Copy source and build jar
+# Copy backend source code and compile jar
 COPY backend/src ./src
-RUN if [ -f ./mvnw ]; then ./mvnw clean package -DskipTests; \
-    else ./apache-maven-3.9.6/bin/mvn clean package -DskipTests; fi
+RUN mvn clean package -DskipTests -B
 
 # ==========================================
 # STAGE 2: Combined Runtime Container
