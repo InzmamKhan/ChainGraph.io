@@ -1,0 +1,11 @@
+tx_hash,timestamp,from_wallet,to_wallet,amount,token_symbol,gas_fee,wallet_age_days
+0xPEEL_SINK_01,2026-10-24 10:00:00,0xPeel_Whale_Root,0xPeel_Clean_Sink_1,1500.0,USDT,0.001,1
+0xPEEL_HOP_01,2026-10-24 10:00:25,0xPeel_Whale_Root,0xPeel_Carrier_1,98498.5,USDT,0.001,1
+0xPEEL_SINK_02,2026-10-24 10:20:00,0xPeel_Carrier_1,0xPeel_Clean_Sink_2,1700.0,USDT,0.001,1
+0xPEEL_HOP_02,2026-10-24 10:20:25,0xPeel_Carrier_1,0xPeel_Carrier_2,96797.0,USDT,0.001,1
+0xPEEL_SINK_03,2026-10-24 10:40:00,0xPeel_Carrier_2,0xPeel_Clean_Sink_3,1900.0,USDT,0.001,1
+0xPEEL_HOP_03,2026-10-24 10:40:25,0xPeel_Carrier_2,0xPeel_Carrier_3,94895.5,USDT,0.001,1
+0xPEEL_SINK_04,2026-10-24 11:00:00,0xPeel_Carrier_3,0xPeel_Clean_Sink_4,2100.0,USDT,0.001,1
+0xPEEL_HOP_04,2026-10-24 11:00:25,0xPeel_Carrier_3,0xPeel_Carrier_4,92794.0,USDT,0.001,1
+0xPEEL_SINK_05,2026-10-24 11:20:00,0xPeel_Carrier_4,0xPeel_Clean_Sink_5,2300.0,USDT,0.001,1
+0xPEEL_HOP_05,2026-10-24 11:20:25,0xPeel_Carrier_4,0xPeel_Carrier_5,90492.5,USDT,0.001,1
