@@ -1,18 +1,5 @@
 # <div align="center">⛓️ ChainGraph.io</div>
 
-<div align="center">
-
-### On-Chain Relationship Visualizer & Forensic Anomaly Detection Engine
-
-</div>
-
----
-
-## 📌 Tagline
-> **De-anonymizing crypto wash trading, multi-hop peeling chains, and structural illicit flow with hybrid graph topology algorithms and ensemble machine learning.**
-
----
-
 ## 🔗 Quick Links
 * **Live Web App (Vercel)**: https://chain-graph-io.vercel.app/
 * **API Service (Render)**: https://chaingraph-io.onrender.com
