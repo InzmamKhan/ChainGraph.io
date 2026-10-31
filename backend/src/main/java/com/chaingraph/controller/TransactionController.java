@@ -43,4 +43,17 @@ public class TransactionController {
             return ResponseEntity.internalServerError().body("{\"error\": \"" + e.getMessage() + "\"}");
         }
     }
+
+    @PostMapping(value = "/manual", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> analyzeManualRecords(@RequestBody List<TransactionDto> transactions) {
+        try {
+            if (transactions == null || transactions.isEmpty()) {
+                return ResponseEntity.badRequest().body("{\"error\": \"No transaction records provided\"}");
+            }
+            String analysisResultJson = graphAnalysisClientService.sendForComputation(transactions);
+            return ResponseEntity.ok(analysisResultJson);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("{\"error\": \"" + e.getMessage() + "\"}");
+        }
+    }
 }
